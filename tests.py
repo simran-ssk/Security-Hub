@@ -204,7 +204,7 @@ def test_transform_finding(sechub, asset, vulnerability):
     assert f['Title'] == 'Debian DSA-4117-1 : gcc-4.9 - security update'
     assert isinstance(f['Description'], str)
     assert f['Resources'][0]['Type'] == 'AwsEc2Instance'
-    assert f['Resources'][0]['Id'] == 'arn:aws:ec2:us-east-1:abcdef:instance:i-00f9e618482900000'
+    assert f['Resources'][0]['Id'] == 'arn:aws:ec2:us-east-1:600832220000:instance:i-00f9e618482900000'
     assert f['Resources'][0]['Region'] == 'us-east-1'
     assert f['Resources'][0]['Details']['AwsEc2Instance']['Type'] == 't2.medium'
     assert f['Resources'][0]['Details']['AwsEc2Instance']['ImageId'] == 'ami-daf89000'
