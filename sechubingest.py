@@ -135,7 +135,7 @@ class SecurityHubIngester(object):
             return None
 
         # only ingest specified aws accounts.
-        if asset.get('aws_owner_id') is not self._aws_accounts:
+        if asset.get('aws_owner_id') not in self._aws_accounts:
             return None
 
         # populate the trimmed asset.
