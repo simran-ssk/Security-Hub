@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''
 MIT License
 
@@ -91,7 +91,7 @@ class SecurityHubIngester(object):
         #    raise SecHubError('{} is not a valid AWS region.'.format(region))
         self._region = region
         self._account_id = account_id
-        self._aws_accounts = list(set([self._account_id] + aws_accounts))
+        self._aws_accounts = list(set([self._account_id] + aws_accounts)) if aws_accounts else None
         self._sechub = boto3.client('securityhub',
             region_name=region,
             aws_access_key_id=aws_access_id,
@@ -135,7 +135,7 @@ class SecurityHubIngester(object):
             return None
 
         # only ingest specified aws accounts.
-        if asset.get('aws_owner_id') not in self._aws_accounts:
+        if self._aws_accounts and asset.get('aws_owner_id') not in self._aws_accounts:
             return None
 
         # populate the trimmed asset.
@@ -208,7 +208,7 @@ class SecurityHubIngester(object):
             'LastObservedAt': vuln.get('last_found'),
             'ProductArn': 'arn:aws:securityhub:{}:{}:{}'.format(
                 self._region, '422820575223', 'product/tenable/tenable-io'),
-            'AwsAccountId': self._account_id,
+            'AwsAccountId': asset.get('aws_owner_id'),
             'GeneratorId': 'tenable-plugin-{}'.format(
                 vuln.get('plugin').get('id')),
             'Id': '{}/{}/{}'.format(
