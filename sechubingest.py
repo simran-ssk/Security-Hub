@@ -222,7 +222,7 @@ class SecurityHubIngester(object):
                 'Product': vuln.get('plugin').get('cvss_base_score',
                                 sevmap[vuln.get('severity_default_id', 0)]),
                 'Normalized': int(vuln.get('plugin').get('cvss_base_score',
-                                sevmap[vuln.get('severity_default_id', 0)]) * 10),
+                                sevmap[vuln.get('severity_default_id', 0)]) * 4),
             },
             'Title': trunc(vuln.get('plugin').get('name'), 256),
             'Description': trunc(vuln.get('plugin').get('description'), 1024),
